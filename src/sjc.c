@@ -4,7 +4,7 @@
  * Copyright (c) 2026 C R Jervis - chrisxjervis@gmail.com
  *
  *
- * Format (little and boring on purpose):
+ * File construction:
  *   Header:
  *     4 bytes  magic "SJCK"
  *     1 byte   version (1)
@@ -15,9 +15,9 @@
  *     ciphertext (CBC), PKCS#7 padded
  *
  * Build:
- *   cc -O2 -Wall -Wextra -std=c99 -o skipjack-crypt skipjack_crypt.c
+ *   cc -O2 -Wall -Wextra -std=c99 -o sjc sjc.c
  *
- * Usage:
+ * Application usage:
  *   Encrypt: sjc -e -k <20 hex chars> -i plaintext -o ciphertext.sj
  *   Decrypt: sjc -d -k <20 hex chars> -i ciphertext.sj -o plaintext
  *   Selftest: sjc -t

@@ -150,12 +150,14 @@ static void skipjack_encrypt_block(uint8_t block[8], const uint8_t key[10]) {
     } else {
       /* Rule B */
       uint16_t g = G(w1, key, r);
-      uint16_t new_w1 = (uint16_t)(w4);
-      uint16_t new_w4 = (uint16_t)(g ^ w2 ^ r);
-      w4 = w3;
-      w3 = new_w4;
-      w2 = g;
+      uint16_t new_w1 = w4;
+      uint16_t new_w2 = g;
+      uint16_t new_w3 = w2;
+      uint16_t new_w4 = (uint16_t)(g ^ w3 ^ r);
       w1 = new_w1;
+      w2 = new_w2;
+      w3 = new_w3;
+      w4 = new_w4;
     }
   }
 
@@ -186,10 +188,10 @@ static void skipjack_decrypt_block(uint8_t block[8], const uint8_t key[10]) {
       w4 = old_w4;
     } else {
       /* Inverse of Rule B */
-      uint16_t old_w1 = w1;              /* was w4 before forward step */
-      uint16_t old_w4 = (uint16_t)(w3 ^ w2 ^ r);
-      uint16_t old_w2 = Ginv(w2, key, r);
-      uint16_t old_w3 = w4;
+      uint16_t old_w1 = Ginv(w2, key, r);
+      uint16_t old_w2 = w3;
+      uint16_t old_w3 = (uint16_t)(w4 ^ w2 ^ r);
+      uint16_t old_w4 = w1;
 
       w1 = old_w1;
       w2 = old_w2;
